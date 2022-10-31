@@ -27,27 +27,27 @@ public class VehicleController {
 	@Autowired
 	private VehicleService vehicleService ;
 	
-	@PostMapping("/details/add")
+	@PostMapping("/detailsAdd")
 	public ResponseEntity<?> addVehicleDetails(@RequestBody VehicleCO vehicleCO){
 		String message = this.vehicleService.addVehicleDetails(vehicleCO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(message);
 	}
-	@PutMapping("/details/update")
-	public ResponseEntity<?> updateVehicleDetails(@RequestBody VehicleCO vehicleCO , int vehicleNo){
+	@PutMapping("/detailsUpdate/{vehicleNo}")
+	public ResponseEntity<?> updateVehicleDetails(@RequestBody VehicleCO vehicleCO ,@PathVariable int vehicleNo){
 		Vehicle vehicleDetails = this.vehicleService.updateVehicleDetails(vehicleCO, vehicleNo);
 		return ResponseEntity.ok(vehicleDetails);
 	}
-	@GetMapping("/details/get")
+	@GetMapping("/detailsGet/{vehicleNo}")
 	public ResponseEntity<?> getVehicleDetails(@PathVariable int vehicleNo){
 		VehicleVO vehicleDetailsByNo = this.vehicleService.getVehicleDetailsByNo(vehicleNo);
 		return ResponseEntity.ok(vehicleDetailsByNo);
 	}
-	@GetMapping("all/details/get")
+	@GetMapping("/allDetailsGet")
     public ResponseEntity<?> getAllVehicleDetails(){
     	List<VehicleVO> allVehicleDetails = this.vehicleService.getAllVehicleDetails();
     	return ResponseEntity.ok(allVehicleDetails);
     }
-	@DeleteMapping("/details/delete")
+	@DeleteMapping("/detailsDelete/{vehicleNo}")
 	public ResponseEntity<?> deleteVehicleDetailByNumber(@PathVariable int vehicleNo){
 		VehicleResponse deletedVehicleDetails = this.vehicleService.deleteVehicleDetails(vehicleNo);
 		return ResponseEntity.ok(deletedVehicleDetails);
